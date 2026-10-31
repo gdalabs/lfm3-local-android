@@ -33,7 +33,7 @@ class ModelRepository(private val context: Context) {
             .getOrNull()?.takeIf { m -> m.file.isFile && m.file.length() == m.manifest.size }
     }.sortedBy { it.manifest.name }
     fun officialManifests(): List<Pair<String, String>> = context.assets.list("").orEmpty()
-        .filter { it.startsWith("lfm3-") && it.endsWith(".json") && (!BuildConfig.REFUSAL_ADAPTER || it == "bonsai-PTQ1_0.json") }
+        .filter { it.endsWith(".json") && (it != "bonsai-PTQ1_0.json" || BuildConfig.REFUSAL_ADAPTER) }
         .map { it to context.assets.open(it).bufferedReader().use { reader -> reader.readText() } }
     fun import(uri: Uri, manifestText: String, progress: (Long) -> Unit): InstalledModel {
         return install(manifestText, { context.contentResolver.openInputStream(uri) ?: error("Cannot open selected model") }, progress)

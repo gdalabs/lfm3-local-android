@@ -40,7 +40,8 @@ class ModelImportTest {
         rejects { ModelVerifier.copyVerified(ByteArrayInputStream(invalid), ByteArrayOutputStream(), manifest(invalid)) }
     }
     @Test fun unsupportedBackendRejected() { rejects { manifest().copy(backend = "stock-llama").validate() } }
-    @Test fun unsupportedArchitectureRejected() { rejects { manifest().copy(architecture = "qwen3").validate() } }
+    @Test fun supportedArchitecturesAccepted() { manifest().copy(architecture = "qwen3").validate(); manifest().copy(architecture = "qwen3.5").validate(); manifest().copy(architecture = "qwen35").validate() }
+    @Test fun unsupportedArchitectureRejected() { rejects { manifest().copy(architecture = "llama").validate() } }
     @Test fun unsupportedFormatRejected() { rejects { manifest().copy(format = "Q1_0").validate() } }
     @Test fun unsafeContextRejected() { rejects { manifest().copy(context = 262144).validate() } }
     @Test fun missingSpecialTokensRejected() { rejects { manifest().copy(specialTokens = emptyList()).validate() } }

@@ -12,6 +12,9 @@ data class ModelManifest(
 ) {
     companion object {
         const val BACKEND = "lfm3-19cce691-cpu"
+        const val GGUF_BACKEND = "gguf-19cce691-cpu"
+        val SUPPORTED_ARCHITECTURES = setOf("lfm3", "qwen3", "qwen3.5", "qwen35")
+        val SUPPORTED_FORMATS = setOf("AD-Q4_K_M", "AD-Q6_K", "Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0")
         fun parse(text: String): ModelManifest {
             require(text.length <= 65536) { "Manifest exceeds 64 KiB" }
             val j = JSONObject(text)
@@ -25,11 +28,11 @@ data class ModelManifest(
     }
     fun validate() {
         require(name.isNotBlank() && name.length <= 160 && version.isNotBlank()) { "Missing model name/version" }
-        require(architecture == "lfm3") { "Unsupported architecture $architecture; this build supports lfm3 only" }
-        require(format in setOf("AD-Q4_K_M", "AD-Q6_K")) { "Unsupported format $format" }
+        require(architecture in SUPPORTED_ARCHITECTURES) { "Unsupported architecture $architecture" }
+        require(format in SUPPORTED_FORMATS) { "Unsupported format $format" }
         require(sha256.matches(Regex("[a-f0-9]{64}"))) { "Expected a lowercase SHA-256 checksum" }
         require(size in 24L..4_000_000_000L) { "Model size must be between 24 bytes and 4 GB" }
-        require(backend == BACKEND) { "Required backend $backend is unavailable; install a compatible MeshMind build" }
+        require(backend == BACKEND || backend == GGUF_BACKEND) { "Required backend $backend is unavailable; install a compatible build" }
         require(chatTemplate == "embedded") { "Only the GGUF embedded chat template is supported" }
         require(context in 512..4096) { "Use a context length between 512 and 4096" }
         require(specialTokens.isNotEmpty() && specialTokens.size <= 32) { "Missing special token requirements" }

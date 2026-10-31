@@ -9,6 +9,15 @@
 #include <stdexcept>
 #include <sys/resource.h>
 
+static bool supported_architecture(const std::string & a) {
+    return a == "lfm3" || a == "qwen3" || a == "qwen3.5" || a == "qwen35";
+}
+
+static bool supported_quant_name(const std::string & f) {
+    return f.empty() || f == "AD-Q4_K_M" || f == "AD-Q6_K" || f == "Q4_K_M" ||
+           f == "Q5_K_M" || f == "Q6_K" || f == "Q8_0";
+}
+
 namespace meshmind {
 using Clock = std::chrono::steady_clock;
 static double ms(Clock::time_point a) { return std::chrono::duration<double, std::milli>(Clock::now() - a).count(); }
@@ -46,10 +55,10 @@ void Runtime::load(const std::string & path, int context, int threads, bool effi
         if (!header) throw std::runtime_error("Invalid GGUF header");
         const auto architecture = gguf_find_key(header.get(), "general.architecture");
         if (architecture < 0 || gguf_get_kv_type(header.get(), architecture) != GGUF_TYPE_STRING ||
-            std::string(gguf_get_val_str(header.get(), architecture)) != "lfm3")
-            throw std::runtime_error("Unsupported GGUF architecture; this backend supports lfm3 only");
-        if (!expected_format.empty() && expected_format != "AD-Q4_K_M" && expected_format != "AD-Q6_K")
-            throw std::runtime_error("Unsupported LFM3 quantization manifest");
+            !supported_architecture(std::string(gguf_get_val_str(header.get(), architecture))))
+            throw std::runtime_error("Unsupported GGUF architecture");
+        if (!supported_quant_name(expected_format))
+            throw std::runtime_error("Unsupported quantization manifest");
         bool q4 = false, q6 = false;
         for (int64_t i = 0; i < gguf_get_n_tensors(header.get()); ++i) {
             auto type = gguf_get_tensor_type(header.get(), i);
@@ -73,8 +82,8 @@ void Runtime::load(const std::string & path, int context, int threads, bool effi
         mp.progress_callback_user_data = this;
         model = llama_model_load_from_file(path.c_str(), mp);
         if (!model) throw std::runtime_error("Model load failed: invalid GGUF, unsupported operators, cancellation, or insufficient RAM");
-        if (meta(model, "general.architecture") != "lfm3")
-            throw std::runtime_error("This backend is validated only for lfm3; install a compatible backend for this architecture");
+        if (!supported_architecture(meta(model, "general.architecture")))
+            throw std::runtime_error("Unsupported GGUF architecture");
         if (!llama_model_chat_template(model, nullptr))
             throw std::runtime_error("GGUF has no embedded chat template");
         for (const auto & token : special_tokens) {

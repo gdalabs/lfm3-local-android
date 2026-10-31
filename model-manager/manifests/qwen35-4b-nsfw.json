@@ -1,0 +1,16 @@
+{
+  "name": "Qwen3.5 4B NSFW Literotica Q4_K_M",
+  "version": "qwen35-4b-nsfw-1",
+  "base_architecture": "qwen35",
+  "gguf_format": "Q4_K_M",
+  "sha256": "4248247a857d43cd992a2d4f380106356672562c1124a045a1e25b616b6c1054",
+  "size_bytes": 2708804832,
+  "required_backend": "gguf-19cce691-cpu",
+  "chat_template": "embedded",
+  "context_length": 4096,
+  "special_tokens": [
+    "<|im_start|>",
+    "<|im_end|>"
+  ],
+  "provenance": "https://huggingface.co/Sinbad-The-Sailor/Qwen3.5-4B-NSFW-ARA-Heretic-Literotica-i1-GGUF"
+}
