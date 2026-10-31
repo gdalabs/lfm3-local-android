@@ -7,7 +7,7 @@ plugins {
 }
 val emulatorBuild = providers.gradleProperty("meshmindEmulator").orNull == "true"
 val bundledModel = providers.gradleProperty("meshmindBundledModel").orNull
-val bundledFormat = providers.gradleProperty("meshmindBundledFormat").orElse("AD-Q4_K_M").get()
+val bundledFormat = providers.gradleProperty("meshmindBundledFormat").orElse("AD-Q6_K").get()
 val uncensored = false
 val bundledAdapter = providers.gradleProperty("meshmindBundledAdapter").orNull
 require(!uncensored || (bundledModel != null && bundledFormat == "PTQ1_0" && bundledAdapter != null)) {
@@ -57,10 +57,10 @@ android {
         applicationId = "org.meshmind.app.lfm3.uncensored"
         minSdk = 28
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0-lfm3-preview"
+        versionCode = 2
+        versionName = "0.1.1-lfm3-preview"
         buildConfigField("boolean", "REFUSAL_ADAPTER", uncensored.toString())
-        manifestPlaceholders["appLabel"] = "LFM3 Local Uncensored"
+        manifestPlaceholders["appLabel"] = "LFM3 1.7B Uncensored"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ndk { abiFilters += if (emulatorBuild) "x86_64" else "arm64-v8a" }
         externalNativeBuild { cmake {
@@ -79,7 +79,7 @@ android {
     androidResources { noCompress += "gguf" }
     testOptions { unitTests.isReturnDefaultValues = true }
     buildTypes {
-        release { isMinifyEnabled = false }
+        release { isMinifyEnabled = false; isDebuggable = false; signingConfig = signingConfigs.getByName("debug") }
         debug { if (emulatorBuild) { applicationIdSuffix = ".emulator"; versionNameSuffix = "-emulator" } }
     }
     packaging { jniLibs.useLegacyPackaging = false }
@@ -88,6 +88,9 @@ if (prepareBundledModel != null) tasks.matching { it.name == "preBuild" }.config
 androidComponents { beforeVariants(selector().withBuildType("release")) { if (emulatorBuild) it.enable = false } }
 dependencyLocking { lockAllConfigurations() }
 dependencies {
+    implementation("org.commonmark:commonmark-ext-gfm-strikethrough:0.31.0")
+    implementation("org.commonmark:commonmark-ext-gfm-tables:0.31.0")
+    implementation("org.commonmark:commonmark:0.31.0")
     implementation(platform("androidx.compose:compose-bom:2025.08.00"))
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.foundation:foundation")

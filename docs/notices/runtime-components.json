@@ -538,5 +538,32 @@
         "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
       }
     ]
+  },
+  {
+    "component": "org.commonmark:commonmark:0.31.0",
+    "licenses": [
+      {
+        "name": "BSD-2-Clause",
+        "url": "https://github.com/commonmark/commonmark-java/blob/commonmark-parent-0.31.0/LICENSE.txt"
+      }
+    ]
+  },
+  {
+    "component": "org.commonmark:commonmark-ext-gfm-tables:0.31.0",
+    "licenses": [
+      {
+        "name": "BSD-2-Clause",
+        "url": "https://github.com/commonmark/commonmark-java/blob/commonmark-parent-0.31.0/LICENSE.txt"
+      }
+    ]
+  },
+  {
+    "component": "org.commonmark:commonmark-ext-gfm-strikethrough:0.31.0",
+    "licenses": [
+      {
+        "name": "BSD-2-Clause",
+        "url": "https://github.com/commonmark/commonmark-java/blob/commonmark-parent-0.31.0/LICENSE.txt"
+      }
+    ]
   }
 ]

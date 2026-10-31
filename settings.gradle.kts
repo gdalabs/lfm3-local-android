@@ -3,5 +3,5 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories { google(); mavenCentral() }
 }
-rootProject.name = "MeshMind"
+rootProject.name = "lfm3-1.7b-uncensored-android"
 include(":android-app")

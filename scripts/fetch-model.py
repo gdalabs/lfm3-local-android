@@ -8,7 +8,7 @@ import urllib.request
 
 parser = argparse.ArgumentParser()
 parser.add_argument("destination", type=pathlib.Path)
-parser.add_argument("--format", choices=["q4", "q6"], default="q4")
+parser.add_argument("--format", choices=["q4", "q6"], default="q6")
 args = parser.parse_args()
 root = pathlib.Path(__file__).resolve().parents[1]
 name = "lfm3-uncensored-q6.json" if args.format == "q6" else "lfm3-uncensored.json"

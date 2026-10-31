@@ -1,21 +1,16 @@
 {
-  "schema": 1,
+  "schema": 2,
   "date": "2026-10-31",
-  "status": "experimental debug preview",
+  "status": "experimental non-debuggable preview; Android debug signing identity",
+  "version": "0.1.1-lfm3-preview",
   "application_id": "org.meshmind.app.lfm3.uncensored",
-  "version": "0.1.0-lfm3-preview",
-  "runtime": {
-    "url": "https://github.com/ggml-org/llama.cpp",
-    "commit": "19cce6919992fdffd92e0ac152caaf1e2b8f254e",
-    "archive_sha256": "e16c6d1076af7a2bdb351e22176dd4b302f244ac4c3822604e2ec64a8a783d44"
-  },
   "bundled_model": {
-    "name": "LFM3 1.7B Uncensored AD-Q4_K_M (AtomicChat)",
+    "name": "LFM3 1.7B Uncensored AD-Q6_K (AtomicChat)",
     "version": "3ad712542eb9de349dbd28f2739b69c925cdec7d",
     "base_architecture": "lfm3",
-    "gguf_format": "AD-Q4_K_M",
-    "sha256": "b22df65673b54ed326f18f74826d76f3b65dadc237ffd6306cd52be04544827d",
-    "size_bytes": 1132208000,
+    "gguf_format": "AD-Q6_K",
+    "sha256": "4a7d91c094b9a0f8ed094093f3a0eb3cfeeb46b9bd491e33115689fc5d658b22",
+    "size_bytes": 1587969920,
     "required_backend": "lfm3-19cce691-cpu",
     "chat_template": "embedded",
     "context_length": 4096,
@@ -28,45 +23,56 @@
     "provenance": "https://huggingface.co/AtomicChat/LFM3-1.7B-Uncensored-GGUF/tree/3ad712542eb9de349dbd28f2739b69c925cdec7d"
   },
   "checks": {
-    "arm64_debug_build": true,
+    "arm64_release_build": true,
     "instrumentation_apk_compiled": true,
     "jvm_tests": {
-      "tests": 15,
+      "tests": 39,
       "failures": 0,
       "errors": 0,
       "skipped": 0
     },
     "lint_errors": 0,
     "lint_warnings": 1,
-    "host_runtime_q4_and_q6_integration": true,
-    "host_application_runtime_asan_ubsan": true,
-    "upstream_instrumented": false,
-    "leak_check": false,
     "no_internet_permission": true,
     "arm64_only": true,
     "elf_and_zip_16k_alignment": true,
     "bundled_model_size_and_sha256": true,
-    "app_and_test_debug_signatures_verified": true,
-    "app_test_signing_certificates_match": true,
-    "upstream_source_files_match_archive": 3944,
-    "owner_identity_review_passed": true,
-    "packaged_license_assets_match_source": 18
+    "non_debuggable": true,
+    "app_and_test_signatures_verified": true,
+    "previous_release_signing_identity_preserved": true,
+    "signing_certificate_sha256": "1e221eeb85f6af8f5aa919b65630477b1ed87cdf1822c0d77b7de98b91d02051",
+    "packaged_license_assets_match_source": 9
+  },
+  "ui_previews": {
+    "renderer": "Paparazzi 2.0.0-alpha04",
+    "device_layout": "Pixel 5",
+    "locale": "en",
+    "count": 4,
+    "content": "Fixed English sample conversation; no model inference; not physical-device captures"
   },
   "remaining": [
-    "Actual Android phone inference and opt-in instrumentation",
+    "Actual Android phone inference and instrumentation of this version",
     "Device RAM, latency, thermal and battery measurements",
     "Production signing"
   ],
   "artifacts": [
     {
-      "name": "LFM3-Local-Uncensored-0.1.0-arm64-bundled-debug.apk",
-      "bytes": 1174772616,
-      "sha256": "3e1e4efd97130ba9efe9df96fbc4bf72b9caa426dd678ceef141ea29d706a7ba"
+      "name": "LFM3-1.7B-Uncensored-Android-0.1.1-arm64-AD-Q6_K-bundled-preview.apk",
+      "bytes": 1617923601,
+      "sha256": "220e70843d4ebc47890f45d072cc6f601b9a92e37f89802e3e65f3d6c8310d6b"
     },
     {
-      "name": "LFM3-Local-Uncensored-0.1.0-arm64-androidTest.apk",
-      "bytes": 813349,
-      "sha256": "e5c3ecfb128abcf4e3d21d6ed9a36cd2aea6aaf806eee7846be2b26073dbfa8d"
+      "name": "LFM3-1.7B-Uncensored-Android-0.1.1-arm64-androidTest.apk",
+      "bytes": 821814,
+      "sha256": "c04a16593cd3fc1cb1e33dd68b8041be8820b1e3bd19eac946b02a08387ca75e"
     }
-  ]
+  ],
+  "inherited_native_validation": {
+    "host_q4_q6_inference_and_reset_cancel_recovery_overflow": true,
+    "application_runtime_asan_ubsan": true,
+    "upstream_instrumented": false,
+    "leak_check": false,
+    "runtime_commit": "19cce6919992fdffd92e0ac152caaf1e2b8f254e",
+    "native_source_changed_in_this_version": false
+  }
 }

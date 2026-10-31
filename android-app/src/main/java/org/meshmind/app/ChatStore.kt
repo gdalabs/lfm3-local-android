@@ -30,12 +30,10 @@ class ChatStore(context: Context) {
         require(bytes.size >= 28) { "History is incomplete" }
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
         cipher.init(Cipher.DECRYPT_MODE, key(), GCMParameterSpec(128, bytes.copyOfRange(0, 12)))
-        val json = JSONArray(cipher.doFinal(bytes.copyOfRange(12, bytes.size)).toString(Charsets.UTF_8))
-        return List(json.length()) { val m = json.getJSONObject(it); ChatMessage(m.getString("role"), m.getString("content")) }
+        return ChatHistoryCodec.decode(cipher.doFinal(bytes.copyOfRange(12, bytes.size)).toString(Charsets.UTF_8))
     }
     fun write(messages: List<ChatMessage>) {
-        val data = JSONArray().apply { messages.forEach { put(JSONObject().put("role", it.role).put("content", it.content)) } }
-            .toString().toByteArray(Charsets.UTF_8)
+        val data = ChatHistoryCodec.encode(messages).toByteArray(Charsets.UTF_8)
         require(data.size <= 1024 * 1024 && messages.size <= 200) { "History limit reached; reset conversation" }
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
         cipher.init(Cipher.ENCRYPT_MODE, key())
@@ -49,4 +47,16 @@ class ChatStore(context: Context) {
         }
         KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry(alias) }
     }
+}
+
+internal object ChatHistoryCodec {
+    fun decode(text: String): List<ChatMessage> {
+        val json = JSONArray(text)
+        return List(json.length()) { val m = json.getJSONObject(it)
+            ChatMessage(m.getString("role"), m.getString("content"), m.optBoolean("reasoning", false))
+        }
+    }
+    fun encode(messages: List<ChatMessage>): String = JSONArray().apply {
+        messages.forEach { put(JSONObject().put("role", it.role).put("content", it.content).put("reasoning", it.reasoning)) }
+    }.toString()
 }

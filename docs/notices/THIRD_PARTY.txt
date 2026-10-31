@@ -4,3 +4,5 @@ llama.cpp: MIT (see llama-MIT.txt and NATIVE-LICENSES.txt).
 LFM3 weights and AtomicChat derivative: LFM Open License v1.0 (see LFM-Open-License-1.0.txt).
 Android dependencies: see RUNTIME-LICENSES.txt.
 No affiliation with Liquid AI or AtomicChat.
+
+Markdown: commonmark-java 0.31.0 (core, GFM tables and strikethrough), BSD-2-Clause. Full text: commonmark-BSD-2-Clause.txt. Shared UI source: Apache-2.0, Copyright 2026 GDA Labs.
