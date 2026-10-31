@@ -1,0 +1,18 @@
+{
+  "name": "LFM3 1.7B Uncensored AD-Q6_K (AtomicChat)",
+  "version": "3ad712542eb9de349dbd28f2739b69c925cdec7d",
+  "base_architecture": "lfm3",
+  "gguf_format": "AD-Q6_K",
+  "sha256": "4a7d91c094b9a0f8ed094093f3a0eb3cfeeb46b9bd491e33115689fc5d658b22",
+  "size_bytes": 1587969920,
+  "required_backend": "lfm3-19cce691-cpu",
+  "chat_template": "embedded",
+  "context_length": 4096,
+  "special_tokens": [
+    "<|im_start|>",
+    "<|im_end|>",
+    "<think>",
+    "</think>"
+  ],
+  "provenance": "https://huggingface.co/AtomicChat/LFM3-1.7B-Uncensored-GGUF/tree/3ad712542eb9de349dbd28f2739b69c925cdec7d"
+}

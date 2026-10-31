@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "date": "2026-10-31",
+  "status": "experimental debug preview",
+  "application_id": "org.meshmind.app.lfm3.uncensored",
+  "version": "0.1.0-lfm3-preview",
+  "runtime": {
+    "url": "https://github.com/ggml-org/llama.cpp",
+    "commit": "19cce6919992fdffd92e0ac152caaf1e2b8f254e",
+    "archive_sha256": "e16c6d1076af7a2bdb351e22176dd4b302f244ac4c3822604e2ec64a8a783d44"
+  },
+  "bundled_model": {
+    "name": "LFM3 1.7B Uncensored AD-Q4_K_M (AtomicChat)",
+    "version": "3ad712542eb9de349dbd28f2739b69c925cdec7d",
+    "base_architecture": "lfm3",
+    "gguf_format": "AD-Q4_K_M",
+    "sha256": "b22df65673b54ed326f18f74826d76f3b65dadc237ffd6306cd52be04544827d",
+    "size_bytes": 1132208000,
+    "required_backend": "lfm3-19cce691-cpu",
+    "chat_template": "embedded",
+    "context_length": 4096,
+    "special_tokens": [
+      "<|im_start|>",
+      "<|im_end|>",
+      "<think>",
+      "</think>"
+    ],
+    "provenance": "https://huggingface.co/AtomicChat/LFM3-1.7B-Uncensored-GGUF/tree/3ad712542eb9de349dbd28f2739b69c925cdec7d"
+  },
+  "checks": {
+    "arm64_debug_build": true,
+    "instrumentation_apk_compiled": true,
+    "jvm_tests": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "lint_errors": 0,
+    "lint_warnings": 1,
+    "host_runtime_q4_and_q6_integration": true,
+    "host_application_runtime_asan_ubsan": true,
+    "upstream_instrumented": false,
+    "leak_check": false,
+    "no_internet_permission": true,
+    "arm64_only": true,
+    "elf_and_zip_16k_alignment": true,
+    "bundled_model_size_and_sha256": true,
+    "app_and_test_debug_signatures_verified": true,
+    "app_test_signing_certificates_match": true,
+    "upstream_source_files_match_archive": 3944,
+    "owner_identity_review_passed": true,
+    "packaged_license_assets_match_source": 18
+  },
+  "remaining": [
+    "Actual Android phone inference and opt-in instrumentation",
+    "Device RAM, latency, thermal and battery measurements",
+    "Production signing"
+  ],
+  "artifacts": [
+    {
+      "name": "LFM3-Local-Uncensored-0.1.0-arm64-bundled-debug.apk",
+      "bytes": 1174772616,
+      "sha256": "3e1e4efd97130ba9efe9df96fbc4bf72b9caa426dd678ceef141ea29d706a7ba"
+    },
+    {
+      "name": "LFM3-Local-Uncensored-0.1.0-arm64-androidTest.apk",
+      "bytes": 813349,
+      "sha256": "e5c3ecfb128abcf4e3d21d6ed9a36cd2aea6aaf806eee7846be2b26073dbfa8d"
+    }
+  ]
+}

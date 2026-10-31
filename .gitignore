@@ -1,0 +1,14 @@
+/.gradle/
+/.kotlin/
+**/build/
+**/.cxx/
+local.properties
+.env
+.env.*
+*.gguf
+*.apk
+*.jks
+*.keystore
+/third_party/llama.cpp/
+/artifacts/
+__pycache__/

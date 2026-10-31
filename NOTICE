@@ -1,0 +1,10 @@
+LFM3 Local Uncensored for Android
+Copyright (c) 2026 GDA Labs
+
+Derived from MeshMind by GDA Labs, licensed GPL-3.0-only.
+Uses upstream llama.cpp at the revision recorded in dependencies.json.
+Includes an AtomicChat refusal-reduced derivative of Liquid AI LFM3-1.7B.
+Model license: LFM Open License v1.0.
+No affiliation with Liquid AI or AtomicChat is implied.
+
+See docs/notices/ for complete license texts and third-party notices.

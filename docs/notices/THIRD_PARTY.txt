@@ -1,0 +1,6 @@
+Unofficial LFM3 Local Uncensored Android preview.
+Application: GPL-3.0-only, derived from MeshMind by GDA Labs.
+llama.cpp: MIT (see llama-MIT.txt and NATIVE-LICENSES.txt).
+LFM3 weights and AtomicChat derivative: LFM Open License v1.0 (see LFM-Open-License-1.0.txt).
+Android dependencies: see RUNTIME-LICENSES.txt.
+No affiliation with Liquid AI or AtomicChat.
